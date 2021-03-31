@@ -48,6 +48,7 @@ while end_game == "no":
 
     print(heading)
     choose = input("{} or 'xxx' to end the game:".format(choose_instruction))
+
 #End game if exit code is typed
     if choose == "xxx":
         break
@@ -56,5 +57,9 @@ while end_game == "no":
     print("You chose {}".format(choose))
 
     rounds_played += 1
+
+#End game if the number of rounds has been played
+    if rounds_played == rounds:
+        break
 
 print("Thank you for playing")
