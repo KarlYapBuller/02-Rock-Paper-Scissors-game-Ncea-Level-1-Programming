@@ -80,43 +80,68 @@ while end_game == "no":
     user_choice = choice_checker(choose_instruction, rps_list, choose_error)
 
 #Get Computer Choice
-
-#Compare User and Computer Choice
-
     computer_choice = random.choice(rps_list[:-1])
     print("Computer Choice: ", computer_choice)
 
+#Compare User and Computer Choice
+
+#If User chooses rock
     if user_choice == "rock":
+
+        #If User chooses rock and computers random choice is rock the result is outputed as 'It is a draw'
+        #To indicate to the user that they and the computer drew in that round
         if computer_choice == "rock":
             result = "It is a draw"
 
+        #If User chooses rock and computers random choice is paper result is outputed as 'You lost'
+        #To indicate to the user that they lost the round
         elif computer_choice == "paper":
             result = "You lost"
 
+        #If User chooses rock and computers random choice is scissors result is outputed as 'You Won'
+        #To indicate to the user that they won the round
         else:
             result = "You Won"
 
+#If user chooses paper
     elif user_choice == "paper":
 
+        #If User chooses paper and computers random choice is rock result is outputed as 'You Won'
+        #To indicate to the user that they won the round
         if computer_choice == "rock":
             result = "You Won"
 
+        #If User chooses paper and computers random choice is paper the result is outputed as 'It is a draw'
+        #To indicate to the user that they and the computer drew in that round
         elif computer_choice == "paper":
             result = "It is a draw"
 
+#The else is if the User chooses scissors
+
+        #If User chooses paper and computers random choice is scissors result is outputed as 'You lost'
+        #To indicate to the user that they lost the round
         else:
             result = "You lost (Better luck next time)"
 
+#The else is if the User chooses scissors
     else:
 
+        #If User chooses scissors and computers random choice is scissors result is outputed as 'You lost'
+        #To indicate to the user that they lost the round
         if computer_choice == "rock":
             result = "You lost (Better luck next time)"
 
+        #If User chooses scissors and computers random choice is paper result is outputed as 'You Won'
+        #To indicate to the user that they won the round
         elif computer_choice == "paper":
             result = "You Won"
 
+#The else is if the User chooses scissors
+
+        #If User chooses paper and computers random choice is scissors the result is outputed as 'It is a draw'
+        #To indicate to the user that they and the computer drew in that round
         else:
-            result = "It is a draw"
+            result = "It is a draw" 
 
 
 #End game if exit code is typed
