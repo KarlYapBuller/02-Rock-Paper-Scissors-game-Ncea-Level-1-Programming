@@ -1,4 +1,5 @@
 #Rock, Paper, Scissors- Compare User Choice and Computer Choice with one another and show user results
+#When I put it in the base component the 'xxx' end game would not work
 
 rps_list = ["rock", "paper", "scissors"]
 computer_index = 0
