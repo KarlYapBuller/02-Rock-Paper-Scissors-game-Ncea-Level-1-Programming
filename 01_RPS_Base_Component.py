@@ -2,6 +2,30 @@ import random
 
 #Functions
 
+#User Game Instructions
+def Rock_Paper_Scissors_Game_Instructions():
+    print("Welcome to the Rock, Paper, Scissors game")
+    print("This game follows the basic and universal rules of Rock, Paper and Scissors")
+    print("If you do not know what these rules are they are as followed:")
+    print("Rock, Paper, Scissors is a game where you verse another person (in this case a computer).")
+    print("In this game you throw hand gestures in the hope of winning")
+    print("The hand gestures are Rock, Paper and Scissors")
+    print("THe mechanics on how to win the game are as followed:")
+    print("Rock beats Scissors, this also means that Scissors losses to Rock")
+    print("Paper beats Rock, this also means Rock losses to Paper")
+    print("Scissors beats Paper, this also means that Paper losses to Scissors ")
+    print("If you and your opponent have the same hand gesture the match is a tie.")
+    print("In this Rock, Paper, Scissors game there is two game modes.")
+    print("The first game mode is where you can set the maximum amount of games your want to play")
+    print("THe second game mode is continuous mode where you can play an infinite number of rounds")
+    print("To play infinite mode press <Enter> or the Space bar when you are asked how many rounds you want to play")
+    print("If you ever want to quit the game type 'xxx'")
+    print("This is all the information you need to know")
+    print("Good luck hopfully you can beat the computer in this game of Rock, Paper and Scissors.")
+    print()
+    return""
+
+
 def choice_checker(question, valid_list, error_message):
 
     valid = False
@@ -48,9 +72,12 @@ def check_rounds():
 
 #Main Routine
 
+Rock_Paper_Scissors_Game_Instructions()
+
 #Lists for valid input for checking responses
 rps_list = ["rock", "paper", "scissors", "xxx"]
 
+#Rounds
 rounds_played = 0
 rounds_won = 0
 rounds_lost = 0
@@ -89,7 +116,7 @@ while end_game == "no":
 #If User inputs the same option as the COmputers random choice
 #result is outputed to the User as that they drew with the computer in that round
     if computer_choice == user_choice:
-        result = "tied"
+        result = "tie"
         rounds_drawn += 1
 
 #Rock beats Scissors
@@ -116,7 +143,7 @@ while end_game == "no":
         result = "Lost (Better Luck next time)"
         rounds_lost += 1
 
-    if result == "tied":
+    if result == "tie":
         feedback = "Result: It is a tie"
     else:
         feedback = "You chose {} the computer chose {}. \nResult: You {}. ".format(user_choice, computer_choice, result)
