@@ -3,7 +3,8 @@ import random
 #Functions
 
 #Played before function, output depends on what the user answers
-#If the user answers yes, program continues to ask the user how much they want to play with
+#If the user answers yes, program continues ask user how many
+#Rounds they want to play or if they want to play continuous mode
 #If user answers no, game information will display
 #If user answers anything other than yes/no, <error> please answer yes/no will appear
 def played_before(question):
@@ -22,7 +23,8 @@ def played_before(question):
         else:
             print("<error> please answer yes/no")
 
-#User Game Instructions 
+#User Game Instructions
+#Displayed if the User has not played this game before
 def Rock_Paper_Scissors_Game_Instructions():
     print("Welcome to the Rock, Paper, Scissors game")
     print("This game follows the basic and universal rules of Rock, Paper and Scissors")
@@ -105,6 +107,50 @@ def statement_generator(statement, decoration):
 
     return ""
 
+#Played before function, output depends on what the user answers
+#If the user answers yes, program continues to show the
+#Game summary which is in the game_history_statistics function
+#If user answers no, User will be thanked for playing the game
+#If user answers anything other than yes/no, <error> please answer yes/no will appear
+def game_summary_question(question):
+    valid = False
+    while not valid:
+        response = input(question).lower()
+#If user response is either 'yes' or 'y' the response will be outputed as yes.
+        if response == "yes" or response == "y":
+            response = "yes"
+            return response
+#If user response is either 'no' or 'n' the response will be outputed as no.
+        elif response == "no" or response == "n":
+            response = "no"
+            return response
+#If user response is anything other than yes or no,user will be asked to answer yes or no.
+        else:
+            print("<error> please answer yes/no")
+
+def game_history_statistics():
+
+    #Calculate Game Statistics
+
+    percent_win = rounds_won / rounds_played * 100
+    percent_lose = rounds_lost / rounds_played * 100
+    percent_tied = rounds_drawn / rounds_played * 100
+
+    #Game History
+    print()
+    statement_generator("Game History", "*")
+    for game in game_summary:
+        print(game)
+
+    print()
+
+    #Displays Game Statistics with percentage (%) values to the nearest whole number
+    statement_generator("Game Statistics", "%")
+    print("Win: {}, ({:.0f}%)\nLoss: {},({:.0f}%)\nTied: {}, ({:.0f}%)".format(rounds_won, percent_win,
+                                                                           rounds_lost, percent_lose,
+                                                                           rounds_drawn, percent_tied))
+    return""
+
 #Main Routine
 
 #Welcomes user to the Lucky Unicorn game, the
@@ -129,27 +175,23 @@ if show_played_before == "no":
 #Lists for valid input for checking responses
 rps_list = ["rock", "paper", "scissors", "xxx"]
 
-#Emoji
-rock_emoji = "✊"
-paper_emoji = "✋"
-scissors_emoji = "✌"
-
-#Game History
 game_summary = []
 
-#Rounds
 rounds_played = 0
 rounds_won = 0
 rounds_lost = 0
 rounds_drawn = 0
 
+#Displayed to the user to ask the number of rounds the
+#User wants to play or if they input <enter> it is a continous number of rounds played
 rounds = check_rounds()
 
 end_game = "no"
 while end_game == "no":
 
-#Round heading
+#Start of the Rock, Paper, Scissors game
 
+    #Round heading
     print()
     if rounds == "":
         heading = "Continuous Mode: Round {}".format(rounds_played + 1)
@@ -158,60 +200,73 @@ while end_game == "no":
     else:
         heading = "Round {} of {}".format(rounds_played + 1, rounds)
 
-    print(heading)
+    #End game if the number of rounds has been played
+    if rounds_played == rounds:
+        break
 
+    #Displays round and game information
+    statement_generator(heading, "#")
+
+    #Gets the Users gesture of choice
     choose_instruction = "Please choose rock (r), paper (p) or scissors (s) or 'xxx to quit the game: "
 
+    #If the Users gesture of choice is invalid
+    #Error message is displayed to the User and the valid inputs are displayed
     choose_error = "<Error> Please choose from rock (r), paper (p) or scissors (s)"
 
-#Ask user for choice and check it is valid
+    #Ask user for choice and check it is valid
     user_choice = choice_checker(choose_instruction, rps_list, choose_error)
 
-#End game if exit code is typed
+    #End game if exit code is typed
     if user_choice == "xxx":
         break
 
-#Get Computer Choice
+    #Get Computer Choice from choosing from rps_list
+    #Ignores the item in rps_list which is 'xxx' because it is the
+    #Exit code and it is not needed for the computers choice
     computer_choice = random.choice(rps_list[:-1])
 
 #Compare User and Computer Choice
 
-#If User inputs the same option as the COmputers random choice
-#result is outputed to the User as that they drew with the computer in that round
+    #If User inputs the same option as the COmputers random choice
+    #result is outputed to the User as that they drew with the computer in that round
     if computer_choice == user_choice:
         result = "tie 👔"
         rounds_drawn += 1
 
-#Rock beats Scissors
-#Result is outputed to the User that they hay have won the round
+    #Rock beats Scissors
+    #Result is outputed to the User that they hay have won the round
     elif user_choice == "rock" and computer_choice == "scissors":
         result = "Won ✔"
         rounds_won += 1
 
-#Paper beats Rock
-#Result is outputed to the User that they hay have won the round
+    #Paper beats Rock
+    #Result is outputed to the User that they hay have won the round
     elif user_choice == "paper" and computer_choice == "rock":
         result = "Won ✔"
         rounds_won += 1
 
-#Scissors beats Paper
-#Result is outputed to the User that they hay have won the round
+    #Scissors beats Paper
+    #Result is outputed to the User that they hay have won the round
     elif user_choice == "scissors" and computer_choice == "paper":
         result = "Won ✔"
         rounds_won += 1
 
-#If User inputs either Rock, Paper or Scissors and the Computers choice wins
-#Result is outputed to the User that they have lost the round
+    #If User inputs either Rock, Paper or Scissors and the Computers choice wins
+    #Result is outputed to the User that they have lost the round
     else:
         result = "Lost ❌ (Better Luck next time)"
         rounds_lost += 1
 
+    #Feedback that is outputed to the User depends wether the round is a tie or is not a tie
+    #If the round is a tie
     if result == "tie":
         feedback = "Result: It is a tie 👔"
+    #If the round is a win/loss
     else:
         feedback = "You chose {} the computer chose {}. \nResult: You {}. ".format(user_choice.upper(), computer_choice.upper(), result)
 
-#Result outputed to User
+    #Result outputed to User
     print(feedback)
 
     rounds_result = "Round {}, Result: {}".format(rounds_played + 1, result)
@@ -219,27 +274,24 @@ while end_game == "no":
 
     rounds_played += 1
 
-#End game if the number of rounds has been played
-    if rounds_played == rounds:
-        break
+#Game History
 
-#Statistics
-
-#Calculate Game Statistics
-
-percent_win = rounds_won / rounds_played * 100
-percent_lose = rounds_lost / rounds_played * 100
-percent_tied = rounds_drawn / rounds_played * 100
-
+#Calls game summary question function
+#Game Summary statement is decorated
+#If the user answers yes, program continues to show the
+#User the game summary which includes the game history and statistics
+#User will be thanked for playing the game
+#If user answers no, User will be thanked for playing the game
+#If user answers anything other than yes/no, <error> please answer yes/no will appear
 print()
-print("*****Game History*****")
-for game in game_summary:
-    print(game)
-
+statement_generator("Game Summary", "?")
+show_game_summary_question = game_summary_question("Do you want to see your Game Summary (yes/no)?")
 print()
 
-#Displays Game Statistics with percentage (%) values to the nearest whole number
+if show_game_summary_question == "yes":
+    print()
+    game_history_statistics()
 
-print("*****Game Statistics*****")
-print("Win: {}, ({:.0f}%)\nLoss: {},({:.0f}%)\nTied: {}, ({:.0f}%)".format(rounds_won, percent_win, rounds_lost, percent_lose, rounds_drawn, percent_tied))
-
+#Thanks the User for playing the Rock, Paper, Scissors game
+print()
+statement_generator("Thank You for playing the Rock, Paper, Scissors game", "*")
